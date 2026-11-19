@@ -18,15 +18,23 @@ const server = http.createServer((req, res) => {
 
   if (req.method === "GET" && req.url === "/") {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-    res.end("<h1>Hello, 953261!</h1><p>My name is ______ (student ID ______)</p>");
+    res.end("<h1>Hello, 953261!</h1><p>My name is Pongphat Sermpanich (student ID 692115029)</p>");
     return;
   }
 
-  // TODO: add GET /api/me here
+  if (req.method === "GET" && req.url === "/api/me") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({
+      "name": "Pongphat Sermpanich",
+      "studentId": "692115029",
+      "favouriteLanguage": "JavaScript"
+    }));
+    return;
+  }
 
   // TODO: replace this with a proper 404 response
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Not done yet");
+  res.writeHead(404, { "Content-Type": "text/plain" });
+  res.end("Not found 123");
 });
 
 server.listen(PORT, () => console.log(`Running at http://localhost:${PORT}`));
