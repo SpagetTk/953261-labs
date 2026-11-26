@@ -18,12 +18,14 @@ npm start        # Part D — the daily report
 
 ## My own function (Part D)
 
-_Name of your function, what it returns, and which array methods it uses._
+My function is cheapDrinks and it returned the drink that are equal or lower than the maximum price that entered
+It uses the filter(), sort(), and map() array methods.
 
 ## What I learned today
 
-_Write 2–3 sentences in your own words: when would you use map, filter, find and reduce?_
+I use map to make a new array by changing each item, and filter to keep only items that match a condition. I use find to get the first item that matches, 
+and reduce to combine array items into one result, such as a total.
 
 ## AI-use statement
 
-_Did you use an AI tool in this lab? If yes, which one and for what. If no, write "No AI tools used."_
+I use AI to clarify me what this part of problem should be fix in which way and correct my error in debugging.
