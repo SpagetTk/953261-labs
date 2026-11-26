@@ -3,12 +3,12 @@
 // Each line prints ✅ when the function is correct. Fix the code until you see 5 × ✅.
 // Do NOT change the check(...) lines at the bottom — only the functions.
 
-// Bug 1 — the function runs, but prints undefined.
+// Bug 1 — the function runs, but prints undefined. There's a missing return statement.
 function triple(n) {
   return n * 3;
 }
 
-// Bug 2 — same problem, arrow-function version.
+// Bug 2 — same problem, arrow-function version. 
 const shout = (names) => {
   return names.map((name) => name.toUpperCase());
 };

@@ -9,12 +9,14 @@
 // menuNames(menu) → ["Thai Iced Tea", "Americano", ...]
 export function menuNames(menu) {
   // TODO
+  return menu.map((item)=>item.name);
 }
 
 // Task 2 — filter
 // Return only the items whose `available` is true.
 export function availableItems(menu) {
   // TODO
+  return menu.filter((item) => item.available === true);
 }
 
 // Task 3 — find
@@ -22,6 +24,7 @@ export function availableItems(menu) {
 // findItem(menu, "F01") → { id: "F01", name: "Khao Soi", ... }
 export function findItem(menu, id) {
   // TODO
+  return menu.find((item) => item.id === id);
 }
 
 // Task 4 — filter + map
@@ -29,6 +32,9 @@ export function findItem(menu, id) {
 // availableIn(menu, "dessert") → ["Mango Sticky Rice", "Coconut Ice Cream"]
 export function availableIn(menu, category) {
   // TODO
+  return menu
+    .filter((item) => item.category === category && item.available === true)
+    .map((item) => item.name);
 }
 
 // Task 5 — template literal + destructuring
@@ -38,6 +44,8 @@ export function availableIn(menu, category) {
 // Hint: start with  const { name, price, available } = item;
 export function menuLine(item) {
   // TODO
+  const {name, price, available} = item;
+  return `${name} — ${price} THB${!available ? " (sold out)" : ""}`;
 }
 
 // Task 6 — spread
@@ -46,6 +54,7 @@ export function menuLine(item) {
 // withDiscount({ ..., price: 45 }, 10) → { ..., price: 41 }   (45 × 0.9 = 40.5 → 41)
 export function withDiscount(item, percent) {
   // TODO
+  return { ...item, price: Math.round(item.price * (1 - percent / 100)) };
 }
 
 // Task 7 — reduce + find
@@ -54,6 +63,10 @@ export function withDiscount(item, percent) {
 // orderTotal(orders[0], menu) → 160   (2 × 45 + 1 × 70)
 export function orderTotal(order, menu) {
   // TODO
+  return order.items.reduce((total, line) => {
+    const menuItem = menu.find((item) => item.id === line.menuId);
+    return total + (menuItem ? menuItem.price * line.qty : 0);
+  }, 0);
 }
 
 // Task 8 — map + reduce   (this is quiz Q10 again!)
@@ -61,6 +74,7 @@ export function orderTotal(order, menu) {
 // Return 0 when there are no orders.
 export function averageOrder(orders, menu) {
   // TODO
+  return orders.length === 0 ? 0 : parseFloat((orders.reduce((total, order) => total + orderTotal(order, menu), 0) / orders.length).toFixed(2));
 }
 
 // ───────────── Stretch (optional) ─────────────
@@ -68,10 +82,26 @@ export function averageOrder(orders, menu) {
 // Task 9 — return the NAME of the item with the highest total quantity sold.
 export function bestSeller(orders, menu) {
   // TODO
+  const itemQuantities = menu.map((item) => {
+    const totalQty = orders.reduce((sum, order) => {
+      const line = order.items.find((l) => l.menuId === item.id);
+      return sum + (line ? line.qty : 0);
+    }, 0);
+    return { ...item, totalQty };
+  });
+  const bestItem = itemQuantities.reduce((max, item) => item.totalQty > max.totalQty ? item : max, itemQuantities[0]);
+  return bestItem.name;
 }
 
 // Task 10 — group item names by category:
 // { drink: ["Thai Iced Tea", ...], food: [...], dessert: [...] }
 export function namesByCategory(menu) {
   // TODO
+  return menu.reduce((catNames, item) => {
+    if (!catNames[item.category]) {
+      catNames[item.category] = [];
+    }
+    catNames[item.category].push(item.name);
+    return catNames;
+  }, {});
 }
