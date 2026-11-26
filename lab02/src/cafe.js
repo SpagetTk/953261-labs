@@ -105,3 +105,11 @@ export function namesByCategory(menu) {
     return catNames;
   }, {});
 }
+
+// Return available drinks at or below maxPrice, cheapest first, as menu lines.
+export function cheapDrinks(menu, maxPrice) {
+  return menu
+    .filter((item) => item.category === "drink" && item.available && item.price <= maxPrice)
+    .sort((a, b) => a.price - b.price)
+    .map(menuLine);
+}
